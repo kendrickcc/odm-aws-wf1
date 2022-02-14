@@ -1,4 +1,4 @@
-name: Terraform Plan
+name: A - Terraform Plan
 
 on: workflow_dispatch
 

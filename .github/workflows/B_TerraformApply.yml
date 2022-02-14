@@ -1,4 +1,4 @@
-name: Terraform Apply
+name: B - Terraform Apply
 
 on: workflow_dispatch
 
