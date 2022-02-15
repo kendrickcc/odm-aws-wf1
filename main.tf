@@ -4,13 +4,19 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 3.27"
     }
+    backend "s3" {
+      bucket         = "s3-22020215"
+      key            = "terraform.tfstate"
+      region         = var.region_name
+      dynamodb_table = "tbl-22020215"
+    }
   }
 
   required_version = ">= 0.14.9"
 }
 provider "aws" {
   profile = "default"
-  region  = "us-east-1"
+  region  = var.region_name
 }
 data "http" "icanhazip" {
   url = "http://icanhazip.com"
@@ -29,6 +35,7 @@ resource "aws_instance" "app_server" {
 resource "aws_security_group" "allow_traffic" {
   name        = "allow_traffic"
   description = "Allow all traffic"
+  /*
   ingress {
     description = "SSH"
     from_port   = 22
@@ -36,12 +43,13 @@ resource "aws_security_group" "allow_traffic" {
     protocol    = "tcp"
     cidr_blocks = ["${chomp(data.http.icanhazip.body)}/32"]
   }
+*/
   ingress {
     description = "WebODM"
     from_port   = 8000
     to_port     = 8000
     protocol    = "tcp"
-    cidr_blocks = ["${chomp(data.http.icanhazip.body)}/32"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
     from_port   = 0

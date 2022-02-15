@@ -1,3 +1,6 @@
+variable "region_name" {
+  default = "us-east-1"
+}
 variable "pvt_key" {
   default = "~/.ssh/id_rsa_webodm.pem"
 }
