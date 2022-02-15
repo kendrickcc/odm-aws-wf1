@@ -4,19 +4,19 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 3.27"
     }
-    backend "s3" {
-      bucket         = "s3-22020215"
-      key            = "terraform.tfstate"
-      region         = var.region_name
-      dynamodb_table = "tbl-22020215"
-    }
   }
-
   required_version = ">= 0.14.9"
+
+  backend "s3" {
+    bucket         = "s3-22020215"
+    key            = "terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "tbl-22020215"
+  }
 }
 provider "aws" {
   profile = "default"
-  region  = var.region_name
+  region  = "us-east-1"
 }
 data "http" "icanhazip" {
   url = "http://icanhazip.com"
