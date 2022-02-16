@@ -96,7 +96,7 @@ data "template_file" "user_data" {
   template = file("odmSetup.yaml")
 }
 resource "aws_instance" "webodm" {
-  ami                         = data.aws_ami.ubuntu2004.id
+  ami                         = data.aws_ami.ubuntu1804.id # Use ubuntu1804 or ubuntu2004 from data_ami.tf
   instance_type               = var.instance_type
   key_name                    = var.pub_key
   subnet_id                   = aws_subnet.odm_public_subnet.id
