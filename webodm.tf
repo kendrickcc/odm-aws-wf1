@@ -92,27 +92,15 @@ resource "aws_security_group" "odm" {
 #-------------------------------
 # EC2 instance
 #-------------------------------
-data "aws_ami" "ubuntu1804" {
-  most_recent = true
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"]
-  }
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-  owners = ["099720109477"] # Canonical
-}
 data "template_file" "user_data" {
   template = file("odmSetup.yaml")
 }
 resource "aws_instance" "webodm" {
-  ami                         = data.aws_ami.ubuntu1804.id
+  ami                         = data.aws_ami.ubuntu2004.id
   instance_type               = var.instance_type
   key_name                    = var.pub_key
   subnet_id                   = aws_subnet.odm_public_subnet.id
   vpc_security_group_ids      = [aws_security_group.odm.id]
   associate_public_ip_address = true
-  user_data = data.template_file.user_data.rendered
+  #user_data = data.template_file.user_data.rendered
 }
