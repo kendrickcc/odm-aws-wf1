@@ -22,3 +22,6 @@ variable "vpc_cidr_block" {
   description = "Main VPC CIDR Block"
   default     = "192.168.0.0/16"
 }
+variable "private_ip_webodm" {
+  default = "192.168.0.10"
+}
