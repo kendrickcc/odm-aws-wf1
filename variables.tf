@@ -22,6 +22,7 @@ variable "vpc_cidr_block" {
   description = "Main VPC CIDR Block"
   default     = "192.168.0.0/16"
 }
-variable "private_ip_webodm" {
-  default = "192.168.0.10"
+variable "ip_webodm" {
+  description = "The assigned IP address for WebODM server, from the public subnet"
+  default = "192.168.1.10"
 }
