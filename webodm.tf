@@ -22,6 +22,9 @@ terraform {
     dynamodb_table = "tbl-22020215"
   }
 }
+#-------------------------------
+# VPC
+#-------------------------------
 resource "aws_vpc" "odm" {
   cidr_block = var.vpc_cidr_block
 }
