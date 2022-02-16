@@ -23,12 +23,6 @@ terraform {
   }
 }
 #-------------------------------
-# DHCP options set
-#-------------------------------
-resource "aws_vpc_dhcp_options" "dns_resolver" {
-  domain_name_servers = ["8.8.8.8", "8.8.4.4"]
-}
-#-------------------------------
 # VPC
 #-------------------------------
 resource "aws_vpc" "odm" {
@@ -120,5 +114,5 @@ resource "aws_instance" "webodm" {
   subnet_id                   = aws_subnet.odm_public_subnet.id
   vpc_security_group_ids      = [aws_security_group.odm.id]
   associate_public_ip_address = true
-  #user_data = data.template_file.user_data.rendered
+  user_data = data.template_file.user_data.rendered
 }
