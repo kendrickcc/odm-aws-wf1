@@ -66,15 +66,8 @@ resource "aws_route_table_association" "public_1_rt_a" {
 # Security Group
 #-------------------------------
 resource "aws_security_group" "odm" {
-  name   = "SSH and WebODM 8000"
+  name   = "SSH and ODM"
   vpc_id = aws_vpc.odm.id
-  ingress {
-    description = "WebODM portal"
-    from_port   = 8000
-    to_port     = 8000
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
   ingress {
     description = "SSH"
     from_port   = 22
@@ -82,6 +75,31 @@ resource "aws_security_group" "odm" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  /*
+  ingress {
+    description = "NodeODM"
+    from_port   = 3000
+    to_port     = 3000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  */
+  ingress {
+    description = "WebODM"
+    from_port   = 8000
+    to_port     = 8000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  /*
+  ingress {
+    description = "ClusterODM"
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  */
   egress {
     from_port   = 0
     to_port     = 0
@@ -92,12 +110,27 @@ resource "aws_security_group" "odm" {
 #-------------------------------
 # EC2 instance
 #-------------------------------
+#-------------------------------
+# AMI reference
+#-------------------------------
+data "aws_ami" "ubuntu" {
+  most_recent = true
+  filter {
+    name   = "name"
+    values = lookup(var.ubuntu_image, var.ami_selector)
+  }
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+  owners = ["099720109477"] # Canonical
+}
 data "template_file" "user_data" {
   template = file("odmSetup.yaml")
 }
 resource "aws_instance" "webodm" {
-  ami                         = data.aws_ami.ubuntu1804.id # Use ubuntu1804 or ubuntu2004 from data_ami.tf
-  instance_type               = var.instance_type
+  ami                         = data.aws_ami.ubuntu.id
+  instance_type               = lookup(var.instance_type, var.type_selector)
   key_name                    = var.pub_key
   subnet_id                   = aws_subnet.odm_public_subnet.id
   private_ip                  = var.ip_webodm
