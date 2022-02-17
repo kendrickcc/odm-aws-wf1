@@ -21,7 +21,7 @@ variable "ami_selector" {
 }
 variable "ubuntu_image" {
   type = map(any)
-  default {
+  default = {
     bionic = "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"
     focal  = "ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"
   }
