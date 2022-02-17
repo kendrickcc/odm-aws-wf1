@@ -117,7 +117,7 @@ data "aws_ami" "ubuntu" {
   most_recent = true
   filter {
     name   = "name"
-    values = lookup(var.ubuntu_image, var.ami_selector)
+    values = [lookup(var.ubuntu_image, var.ami_selector)]
   }
   filter {
     name   = "virtualization-type"
