@@ -48,7 +48,6 @@ runcmd:
   - sudo mkdir -p /odm/data
   - cd /odm
   - git clone https://github.com/OpenDroneMap/WebODM --config core.autocrlf=input --depth 1
-  - git clone https://github.com/OpenDroneMap/ClusterODM
   - sudo chown -R odm:odm /odm
   - sudo systemctl enable webodm.service
   - sudo systemctl start webodm.service
