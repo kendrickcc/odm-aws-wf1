@@ -11,3 +11,7 @@ curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
 sudo apt install -y nodejs
 cd /odm/ClusterODM
 sudo npm install
+
+
+
+sudo --user=odm docker run --rm -ti -p 3000:3000 -p 8080:8080 opendronemap/clusterodm
