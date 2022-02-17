@@ -138,6 +138,6 @@ resource "aws_instance" "webodm" {
   associate_public_ip_address = true
   user_data                   = data.template_file.user_data.rendered
   root_block_device {
-    volume_size = "100"
+    volume_size = var.rootBlockSize
   }
 }

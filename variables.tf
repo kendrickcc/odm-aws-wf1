@@ -70,6 +70,10 @@ variable "instance_type" {
     m5ad-24xlarge = "m5ad.24xlarge" # AMD 96 vCPUs, 384 GiB, 4.944 USD per Hour
   }
 }
+variable "rootBlockSize" {
+  description = "root volume size in GiB"
+  default     = "100"
+}
 variable "vpc_cidr_block" {
   description = "Main VPC CIDR Block"
   default     = "192.168.0.0/16"
