@@ -4,6 +4,8 @@ Provision EC2 instances in AWS to run OpenDroneMap. This can all be ran from Git
 
 ***NOTE***: This is not a secure build as the code does make known the public SSH key often, and SSH and HTTPS ports are open to the Internet. I've chosen to accept this risk as I only have the environment running for a job. Once the processing is complete, I offload the data to another site, then destroy the environment.
 
+A typical GitHub action will automatically run when a commit is posted. I opted to change the workflows to manual as I often need to just run a new plan to check code, and more importantly, destroy the entire environment when done. I do not keep anything, aside from the S3 backend, up and running.
+
 ## Setup
 
 ### Create IAM user with access key
@@ -30,11 +32,13 @@ For more information on how to setup Terraform and AWS CLI, refer to this articl
 
 ## Use
 
+### Configuration
+
 1. Generate a new SSH key. I suggest renameing the private key to have a `.pem` extension. Will help keep keys more easily identified going forward. Once the public key is generated, update the file `variables.tf` for the `pub_key` name. Then copy the public key contents to `odmSetup.yaml` for `ssh_authorized_keys`. Again, this is not an ideal way to manage the public key.
 2. Review the `variables.tf` data and adjust. For example, update the repo name, owner and project. This information is used to add tags to the resources in AWS and will help with billing.
 3. Verify the AWS region you will be working in. Check `webodm.tf` and `variables.tf` to confirm the region. Note: For the S3 backend, a variable could not be used.
-4. Verify the instance type size. The build will add a 100 GiB drive to the build, but you will want to select the appropriate vCPU and memory for the job.
-5. Committ all changes back to the repo.
+4. Verify the instance type size. The build will add a 100 GiB drive to the build, but you will want to select the appropriate vCPU and memory for the job. I've added a number of sizes in the `variables.tf` for ease. I've not verified all of them. Edit as needed.
+5. Commit all changes back to the repository.
 
 ### Plan
 
