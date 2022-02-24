@@ -7,16 +7,4 @@ In AWS IAM, create a user with full access and create access keys. Download the 
 Reference article on setting this up: https://medium.com/@kymidd/lets-do-devops-github-actions-terraform-aws-77ef6078e4f2
 
 
-git clone https://github.com/OpenDroneMap/ClusterODM
-cd ClusterODM
-npm install
-
-
-curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
-sudo apt install -y nodejs
-cd /odm/ClusterODM
-sudo npm install
-
-
-
 sudo --user=odm docker run --rm -ti -p 3000:3000 -p 8080:8080 opendronemap/clusterodm
