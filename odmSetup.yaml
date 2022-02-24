@@ -54,3 +54,4 @@ runcmd:
 # following command does not really speed up loading
 #  - cd /webodm/WebODM
 #  - sudo docker-compose -f docker-compose.yml -f docker-compose.nodeodm.yml up --no-start
+# sudo --user=odm docker run --rm -ti -p 3000:3000 -p 8080:8080 opendronemap/clusterodm
