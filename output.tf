@@ -1,3 +1,6 @@
-output "WebODM_provisioned" {
-  value = "http://${aws_instance.webodm.public_ip}:8000"
+output "WebODM portal" {
+  value = aws_instance.webodm.public_ip
+}
+output "WebODM_internal_ip" {
+  value = aws_instance.webodm.private_ip
 }
