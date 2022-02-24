@@ -8,6 +8,7 @@ variable "project" {
   default = "OpenDroneMap"
 }
 variable "pub_key" {
+  description = "The public key generated using ssh-keygen and upload to EC2 Key Pairs. The key name must match."
   default = "id_rsa_webodm"
 }
 variable "aws_region" {

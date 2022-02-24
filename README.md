@@ -41,7 +41,7 @@ For more information on how to setup Terraform and AWS CLI, refer to this articl
 ### Configuration
 
 1. Generate a new SSH key. I suggest renaming the private key to have a `.pem` extension. This will help keep keys more easily identified going forward. Once the public key is generated, update the file `variables.tf` for the `pub_key` name. Then copy the public key contents to `odmSetup.yaml` for `ssh_authorized_keys`. Again, this is not an ideal way to manage the public key.
-2. Upload the public key to AWS under EC2 - Key Pairs.
+2. Upload the public key to AWS under EC2 - Key Pairs. This name must match what is in the `variables.tf` file for `pub_key`.
 3. Review the `variables.tf` data and adjust. For example, update the repo name, owner and project. This information is used to add tags to the resources in AWS and will help with billing.
 4. Verify the AWS region you will be working in. Check `webodm.tf` and `variables.tf` to confirm the region. Note: For the S3 backend, a variable could not be used.
 5. Verify the instance type size. The build will add a 100 GiB drive to the build, but you will want to select the appropriate vCPU and memory for the job. I've added a number of sizes in the `variables.tf` for ease. I've not verified all of them. Edit as needed.
