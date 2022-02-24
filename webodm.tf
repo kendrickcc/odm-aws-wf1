@@ -13,7 +13,10 @@ provider "aws" {
 }
 #-------------------------------
 # S3 Remote State
+# Comment out this section if testing locally and do not want to use the S3 bucket
+# Remove the leading # to disable the backend
 #-------------------------------
+#/* Begin comment block - only need to remove the leading "#"
 terraform {
   backend "s3" {
     bucket         = "s3-22020215"
@@ -22,6 +25,7 @@ terraform {
     dynamodb_table = "tbl-22020215"
   }
 }
+#End of comment block */
 #-------------------------------
 # VPC
 #-------------------------------
@@ -30,13 +34,13 @@ resource "aws_vpc" "odm" {
 }
 resource "aws_subnet" "odm_public_subnet" {
   vpc_id            = aws_vpc.odm.id
-  cidr_block        = "192.168.1.0/24"
-  availability_zone = "us-east-1a"
+  cidr_block        = var.public_subnet
+  availability_zone = var.avail_zone
 }
 resource "aws_subnet" "odm_private_subnet" {
   vpc_id            = aws_vpc.odm.id
-  cidr_block        = "192.168.2.0/24"
-  availability_zone = "us-east-1a"
+  cidr_block        = var.private_subnet
+  availability_zone = var.avail_zone
 }
 #-------------------------------
 # Internet Gateway

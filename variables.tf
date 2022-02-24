@@ -15,6 +15,27 @@ variable "aws_region" {
   type        = string
   default     = "us-east-1"
 }
+variable "avail_zone" {
+  default = "us-east-1a"
+}
+variable "rootBlockSize" {
+  description = "root volume size in GiB"
+  default     = "100"
+}
+variable "vpc_cidr_block" {
+  description = "Main VPC CIDR Block"
+  default     = "192.168.0.0/16"
+}
+variable "ip_webodm" {
+  description = "The assigned IP address for WebODM server, from the public subnet"
+  default     = "192.168.1.10"
+}
+variable "public_subnet" {
+  default = "192.168.1.0/24"
+}
+variable "private_subnet" {
+  default = "192.168.2.0/24"
+}
 variable "ami_selector" {
   description = "Ubuntu version to use. Bionic 18.04 LTS or Focal 20.04 LTS"
   default     = "focal"
@@ -69,16 +90,4 @@ variable "instance_type" {
     m5ad-16xlarge = "m5ad.16xlarge" # AMD 64 vCPUs, 256 GiB, 3.296 USD per Hour
     m5ad-24xlarge = "m5ad.24xlarge" # AMD 96 vCPUs, 384 GiB, 4.944 USD per Hour
   }
-}
-variable "rootBlockSize" {
-  description = "root volume size in GiB"
-  default     = "100"
-}
-variable "vpc_cidr_block" {
-  description = "Main VPC CIDR Block"
-  default     = "192.168.0.0/16"
-}
-variable "ip_webodm" {
-  description = "The assigned IP address for WebODM server, from the public subnet"
-  default     = "192.168.1.10"
 }

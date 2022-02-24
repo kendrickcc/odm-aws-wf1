@@ -2,7 +2,7 @@
 
 Provision EC2 instances in AWS to run OpenDroneMap. This can all be ran from GitHub using Actions. No need to install Terraform on a local machine. It uses a S3 bucket to manage the Terraform state file.
 
-***NOTE***: This is not a secure build as the code does make known the public SSH key often, and SSH and HTTPS ports are open to the Internet. I've chosen to accept this risk as I only have the environment running for a job. Once the processing is complete, I offload the data to another site, then destroy the environment.
+***NOTE***: This is not a secure build as the code does make known the public SSH key often, and SSH and HTTPS ports are open to the Internet. I've chosen to accept this risk as I only have the environment running for a job. Once the processing is complete, I offload the data to another site, then destroy the environment. This also only uses one availability zone. This is not designed to be running in high availability mode. Build, process, download results, destroy.
 
 A typical GitHub action will automatically run when a commit is posted. I opted to change the workflows to manual as I often need to just run a new plan to check code, and more importantly, destroy the entire environment when done. I do not keep anything, aside from the S3 backend, up and running.
 
