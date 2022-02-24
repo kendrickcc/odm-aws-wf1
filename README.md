@@ -1,10 +1,12 @@
-# OpenDroneMap in AWS using GitHub workflow actions
+# OpenDroneMap build using Terraform in AWS using GitHub workflow actions
 
 Provision EC2 instances in AWS to run OpenDroneMap. This can all be ran from GitHub using Actions. No need to install Terraform on a local machine. It uses a S3 bucket to manage the Terraform state file.
 
 ***NOTE***: This is not a secure build as the code does make known the public SSH key often, and SSH and HTTPS ports are open to the Internet. I've chosen to accept this risk as I only have the environment running for a job. Once the processing is complete, I offload the data to another site, then destroy the environment. This also only uses one availability zone. This is not designed to be running in high availability mode. Build, process, download results, destroy.
 
 A typical GitHub action will automatically run when a commit is posted. I opted to change the workflows to manual as I often need to just run a new plan to check code, and more importantly, destroy the entire environment when done. I do not keep anything, aside from the S3 backend, up and running.
+
+This build also uses ***cloud-init*** to configure the instances, using file `odmSetup.yaml`. It is important to note that the build will indicate complete but the machine will still need time to download containers and launch. More information on [cloud-init](https://cloud-init.io).
 
 ## Setup
 
@@ -38,7 +40,8 @@ For more information on how to setup Terraform and AWS CLI, refer to this articl
 2. Review the `variables.tf` data and adjust. For example, update the repo name, owner and project. This information is used to add tags to the resources in AWS and will help with billing.
 3. Verify the AWS region you will be working in. Check `webodm.tf` and `variables.tf` to confirm the region. Note: For the S3 backend, a variable could not be used.
 4. Verify the instance type size. The build will add a 100 GiB drive to the build, but you will want to select the appropriate vCPU and memory for the job. I've added a number of sizes in the `variables.tf` for ease. I've not verified all of them. Edit as needed.
-5. Commit all changes back to the repository.
+5. Check `odmSetup.yaml` and edit the instance build as needed. This is using ***cloud-init***.
+6. Commit all changes back to the repository.
 
 ### Plan
 
