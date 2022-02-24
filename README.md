@@ -20,7 +20,11 @@ Reference article on setting this up: (https://medium.com/@kymidd/lets-do-devops
 
 ### Create SSH keys
 
-This can be done under IAM section, but I've found it necessary to have both keys. I don't recall getting both the private and public keys when I created a SSH key within IAM. Use `ssh-keygen` to create a new key, suggest not to use the default `id_rsa` as you will want to destroy and generate a new set of keys for this environment.
+This can be done under IAM section, but I've found it necessary to have both keys. I don't recall getting both the private and public keys when I created a SSH key within IAM. Use `ssh-keygen` to create a new key, suggest not to use the default `id_rsa` as you will want to destroy and generate a new set of keys for this environment. 
+
+It may be confusing why the public key is used twice....
+
+For the EC2 build in `webodm.tf`, the public key is pulled from EC2 - Key Pairs and placed into the root user account, which for this instance is `ubuntu`. The file `odmSetup.yaml` uses the key again, but to create the `odm` user account and then adds the key there. It may be possible, and probably more secure to just copy the key from the `ubuntu` user.
 
 ### Create the S3 backend store
 
@@ -37,11 +41,12 @@ For more information on how to setup Terraform and AWS CLI, refer to this articl
 ### Configuration
 
 1. Generate a new SSH key. I suggest renaming the private key to have a `.pem` extension. This will help keep keys more easily identified going forward. Once the public key is generated, update the file `variables.tf` for the `pub_key` name. Then copy the public key contents to `odmSetup.yaml` for `ssh_authorized_keys`. Again, this is not an ideal way to manage the public key.
-2. Review the `variables.tf` data and adjust. For example, update the repo name, owner and project. This information is used to add tags to the resources in AWS and will help with billing.
-3. Verify the AWS region you will be working in. Check `webodm.tf` and `variables.tf` to confirm the region. Note: For the S3 backend, a variable could not be used.
-4. Verify the instance type size. The build will add a 100 GiB drive to the build, but you will want to select the appropriate vCPU and memory for the job. I've added a number of sizes in the `variables.tf` for ease. I've not verified all of them. Edit as needed.
-5. Check `odmSetup.yaml` and edit the instance build as needed. This is using ***cloud-init***.
-6. Commit all changes back to the repository.
+2. Upload the public key to AWS under EC2 - Key Pairs.
+3. Review the `variables.tf` data and adjust. For example, update the repo name, owner and project. This information is used to add tags to the resources in AWS and will help with billing.
+4. Verify the AWS region you will be working in. Check `webodm.tf` and `variables.tf` to confirm the region. Note: For the S3 backend, a variable could not be used.
+5. Verify the instance type size. The build will add a 100 GiB drive to the build, but you will want to select the appropriate vCPU and memory for the job. I've added a number of sizes in the `variables.tf` for ease. I've not verified all of them. Edit as needed.
+6. Check `odmSetup.yaml` and edit the instance build as needed. This is using ***cloud-init***.
+7. Commit all changes back to the repository.
 
 ### Plan
 
