@@ -9,7 +9,7 @@ variable "project" {
 }
 variable "pub_key" {
   description = "The public key generated using ssh-keygen and upload to EC2 Key Pairs. The key name must match."
-  default = "id_rsa_webodm"
+  default     = "id_rsa_webodm"
 }
 variable "aws_region" {
   description = "geographical location of infrastructure"
