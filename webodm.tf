@@ -37,11 +37,13 @@ resource "aws_subnet" "odm_public_subnet" {
   cidr_block        = var.public_subnet
   availability_zone = var.avail_zone
 }
+/*
 resource "aws_subnet" "odm_private_subnet" {
   vpc_id            = aws_vpc.odm.id
   cidr_block        = var.private_subnet
   availability_zone = var.avail_zone
 }
+*/
 #-------------------------------
 # Internet Gateway
 #-------------------------------
@@ -79,15 +81,6 @@ resource "aws_security_group" "odm" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  /*
-  ingress {
-    description = "NodeODM"
-    from_port   = 3000
-    to_port     = 3000
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  */
   ingress {
     description = "WebODM"
     from_port   = 8000
@@ -95,15 +88,13 @@ resource "aws_security_group" "odm" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-  /*
   ingress {
-    description = "ClusterODM"
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    description = "internal"
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    cidr_blocks = [var.public_subnet]
   }
-  */
   egress {
     from_port   = 0
     to_port     = 0
@@ -132,6 +123,7 @@ data "aws_ami" "ubuntu" {
 data "template_file" "user_data" {
   template = file("odmSetup.yaml")
 }
+# WebODM build
 resource "aws_instance" "webodm" {
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = lookup(var.instance_type, var.type_selector)
@@ -139,6 +131,20 @@ resource "aws_instance" "webodm" {
   subnet_id                   = aws_subnet.odm_public_subnet.id
   vpc_security_group_ids      = [aws_security_group.odm.id]
   associate_public_ip_address = true
+  user_data                   = data.template_file.user_data.rendered
+  root_block_device {
+    volume_size = var.rootBlockSize
+  }
+  #private_ip                  = var.ip_webodm # if wanting to specify the internal IP address
+}
+# nodeODM Only difference is no public IP
+resource "aws_instance" "nodeodm" {
+  ami                         = data.aws_ami.ubuntu.id
+  instance_type               = lookup(var.instance_type, var.type_selector)
+  key_name                    = var.pub_key
+  subnet_id                   = aws_subnet.odm_public_subnet.id
+  vpc_security_group_ids      = [aws_security_group.odm.id]
+  associate_public_ip_address = false
   user_data                   = data.template_file.user_data.rendered
   root_block_device {
     volume_size = var.rootBlockSize
