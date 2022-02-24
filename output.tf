@@ -1,4 +1,4 @@
-output "WebODM portal" {
+output "WebODM_public_ip" {
   value = aws_instance.webodm.public_ip
 }
 output "WebODM_internal_ip" {
