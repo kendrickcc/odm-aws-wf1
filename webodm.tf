@@ -125,6 +125,7 @@ data "template_file" "user_data" {
 }
 # WebODM build
 resource "aws_instance" "webodm" {
+  count                       = var.webodm_count
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = lookup(var.instance_type, var.type_selector)
   key_name                    = var.pub_key
@@ -139,6 +140,7 @@ resource "aws_instance" "webodm" {
 }
 # nodeODM Only difference is no public IP
 resource "aws_instance" "nodeodm" {
+  count                       = var.nodeodm_count
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = lookup(var.instance_type, var.type_selector)
   key_name                    = var.pub_key

@@ -19,6 +19,14 @@ variable "aws_region" {
 variable "avail_zone" {
   default = "us-east-1a"
 }
+variable "webodm_count" {
+  description = "Number of WebODM instances"
+  default     = 1
+}
+variable "nodeodm_count" {
+  description = "Number of nodeODM instances"
+  default     = 0
+}
 variable "rootBlockSize" {
   description = "root volume size in GiB"
   default     = "100"
