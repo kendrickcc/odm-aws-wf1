@@ -47,7 +47,7 @@ variable "private_subnet" {
 }
 variable "ami_selector" {
   description = "Ubuntu version to use. Bionic 18.04 LTS or Focal 20.04 LTS"
-  default     = "focal"
+  default     = "bionic"
 }
 variable "ubuntu_image" {
   type = map(any)
@@ -58,7 +58,7 @@ variable "ubuntu_image" {
 }
 variable "type_selector" {
   description = "Select the instance type size."
-  default     = "t3a-micro"
+  default     = "t3a-large"
 }
 variable "instance_type" {
   description = "AWS instance types pulled February 2022. AMDs are a little cheaper to run."
