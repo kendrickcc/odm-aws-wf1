@@ -8,14 +8,15 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: Verify Terraform version
-      run: terraform --version
-
     - name: Terraform init
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      run: terraform init -input=false
+      run: |
+        terraform init \
+          -input=false \
+          -backend-config="bucket=${{ secrets.BUCKET}}" \
+          -backend-config="dynamodb_table=${{ secrets.DYNAMODB_TABLE}}"
 
     - name: Terraform validation
       run: terraform validate
