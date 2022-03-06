@@ -19,10 +19,8 @@ provider "aws" {
 #/* Begin comment block - only need to remove the leading "#"
 terraform {
   backend "s3" {
-    bucket         = "s3-22020215"
     key            = "terraform.tfstate"
     region         = "us-east-1"
-    dynamodb_table = "tbl-22020215"
   }
 }
 #End of comment block */

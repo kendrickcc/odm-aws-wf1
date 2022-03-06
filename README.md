@@ -30,6 +30,8 @@ For the EC2 build in `webodm.tf`, the public key is pulled from EC2 - Key Pairs 
 
 The S3 bucket is needed to manage the Terraform state file. Without this, it is very difficult to make changes to the build while running, or simply the destroy of the entire environment. The state file can contain sensitive build information i.e. credentials, so this probably is best accomplished manually. and is really simple to setup. Refer to this article: (https://www.golinuxcloud.com/configure-s3-bucket-as-terraform-backend/)
 
+The bucket name and dynamodb_table are moved to secrets. 
+
 ### (Optional) Install Terraform and AWS CLI locally
 
 If making a lot of changes to the build, it may be faster to have Terraform running locally to debug code. And since connected to AWS, the CLI for AWS will be needed. Even with the backend in AWS, one can still check code against the environment. If using the S3 backend is not desired, then simply comnent out the backend section of the build.
