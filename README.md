@@ -2,8 +2,6 @@
 
 Provision EC2 instances in AWS to run OpenDroneMap. This can all be ran from GitHub using Actions. No need to install Terraform on a local machine. It uses a S3 bucket to manage the Terraform state file.
 
-***NOTE***: This is not a secure build as the code does make known the public SSH key often, and SSH and HTTPS ports are open to the Internet. I've chosen to accept this risk as I only have the environment running for a job. Once the processing is complete, I offload the data to another site, then destroy the environment. This also only uses one availability zone. This is not designed to be running in high availability mode. Build, process, download results, destroy.
-
 A typical GitHub action will automatically run when a commit is posted. I opted to change the workflows to manual as I often only run a plan to check code, and more importantly, destroy the entire environment when done. I do not keep anything provisioned or running, aside from the S3 backend. The backend can be destroyed between builds. It is most needed when trying to destroy the environment.
 
 This build also uses ***cloud-init*** to configure the instances, using file `odmSetup.yaml`. It is important to note that the build will indicate complete but the machine will still need time to download containers and launch. More information on [cloud-init](https://cloud-init.io).
@@ -30,7 +28,15 @@ For the EC2 build in `webodm.tf`, the public key is pulled from EC2 - Key Pairs 
 
 The S3 bucket is needed to manage the Terraform state file. Without this, it is very difficult to make changes to the build while running, or simply the destroy of the entire environment. The state file can contain sensitive build information i.e. credentials, so this probably is best accomplished manually. and is really simple to setup. Refer to this article: (https://www.golinuxcloud.com/configure-s3-bucket-as-terraform-backend/)
 
-The bucket name and dynamodb_table are moved to secrets. 
+The bucket name and dynamodb_table are moved to secrets.
+
+- GitHub Secrets: In the repository, navigate to Settings, then under Security, select `secrets`. Create new secrets for the following:
+
+	- AWS_ACCESS_KEY_ID (As mentioned above)
+	- AWS_SECRET_ACCESS_KEY (As mentioned above)
+	- BUCKET (The bucket name)
+	- DYNAMODB_TABLE (The table name)
+	- ID_RSA_WEBODM (Contents of public SSH key)
 
 ### (Optional) Install Terraform and AWS CLI locally
 

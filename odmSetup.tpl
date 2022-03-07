@@ -19,7 +19,7 @@ users:
   - name: odm
     groups: sudo, docker
     ssh_authorized_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDm7P1lkbGonVBXvxNzDHU3gJ/f3BPogJe5g7+TZ+FGlXmjRDSrvnkWxaO45lTH5+azxGPK3SfkL/mJI/cNqA9UDIT9ZRuWQL3LCO8gC5Z1sJ/rHb3NeAb1XpsXkwbOvwV7YpPxlsGJ+wk4twTEjoBuxI0bgZjf7Xxq1col0rut5J7z6lKnP5bSuMqxWTngKccePA907pbnkbLy5aWZ6lRbydSwV83hGsyWS6DXXUnchCdC/+xX3d7mrEt5hxmy6Hm+bJ0Jxnf+8xNxPAxUcz/+XLI/gyHecag7Lth94AJKDMei+KAejnQctaQ8T61cGEM5WjXUvszsJk+t0Mebk0Sb chris@Chriss-MBP
+      - ${ssh_key}
 
 write_files:
   - path: /etc/systemd/system/webodm.service

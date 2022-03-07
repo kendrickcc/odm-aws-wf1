@@ -118,8 +118,14 @@ data "aws_ami" "ubuntu" {
   }
   owners = ["099720109477"] # Canonical
 }
+#-------------------------------
+# Get cloud-init template file
+#-------------------------------
 data "template_file" "user_data" {
-  template = file("odmSetup.yaml")
+  template = file("odmSetup.tpl")
+  vars = {
+    ssh_key = var.pub_key_data
+  }
 }
 # WebODM build
 resource "aws_instance" "webodm" {
