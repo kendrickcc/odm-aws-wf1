@@ -48,11 +48,16 @@ runcmd:
   - sudo mkdir -p /odm/data
   - git clone https://github.com/OpenDroneMap/WebODM --config core.autocrlf=input --depth 1 /odm/WebODM
   - sudo chown -R odm:odm /odm
-  - sudo --user=odm /odm/WebODM/webodm.sh start --detached --media-dir /odm/data
+  - sudo curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
+  - sudo apt-get -y install node.js
+  - git clone https://github.com/OpenDroneMap/ClusterODM /odm/ClusterODM
+  - cd /odm/ClusterODM
+  - sudo --user=odm npm install
+  - sudo systemctl enable webodm.service
+  - sudo systemctl start webodm.service
 # old commands
+#  - sudo --user=odm /odm/WebODM/webodm.sh start --detached --media-dir /odm/data
 #  - cd /odm
-#  - sudo systemctl enable webodm.service
-#  - sudo systemctl start webodm.service
 # following command does not really speed up loading
 #  - cd /webodm/WebODM
 #  - sudo docker-compose -f docker-compose.yml -f docker-compose.nodeodm.yml up --no-start

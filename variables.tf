@@ -28,7 +28,7 @@ variable "webodm_count" {
 }
 variable "nodeodm_count" {
   description = "Number of nodeODM instances"
-  default     = 0
+  default     = 1
 }
 variable "rootBlockSize" {
   description = "root volume size in GiB"
@@ -61,8 +61,8 @@ variable "ubuntu_image" {
 }
 variable "type_selector" {
   description = "Select the instance type size."
-  #default     = "t3a-large"
-  default = "m5a-4xlarge"
+  default     = "t3a-large"
+  #default = "m5a-4xlarge"
 }
 variable "instance_type" {
   description = "AWS instance types pulled February 2022. AMDs are a little cheaper to run."
