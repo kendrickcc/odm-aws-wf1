@@ -3,7 +3,7 @@ name: C - Terraform Ouput
 on: workflow_dispatch
 
 jobs:
-  terraform_plan:
+  terraform:
     name: "Terraform output"
     env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
