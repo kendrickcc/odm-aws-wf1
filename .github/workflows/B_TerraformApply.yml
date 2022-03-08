@@ -5,9 +5,6 @@ on: workflow_dispatch
 jobs:
   terraform:
     name: "Terraform apply"
-    env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     runs-on: ubuntu-latest
 
     defaults:
@@ -15,20 +12,40 @@ jobs:
         shell: bash
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout repo
+      uses: actions/checkout@v3
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
 
     - name: Terraform init
+      id: init
       run: |
         terraform init \
-          -input=false \
+          -input=false -no-color \
           -backend-config="bucket=${{ secrets.BUCKET}}" \
           -backend-config="dynamodb_table=${{ secrets.DYNAMODB_TABLE}}"
 
     - name: Terraform validation
-      run: terraform validate
+      id: validate
+      run: |
+        terraform validate \
+          -no-color
 
     - name: Terraform apply
-      run: terraform apply -auto-approve -input=false -var "pub_key_data=${{ secrets.ID_RSA_WEBODM}}"
+      id: apply
+      run: |
+        terraform apply \
+          -auto-approve -input=false -no-color \
+          -var "pub_key_data=${{ secrets.ID_RSA_WEBODM}}"
 
     - name: Terraform output
-      run: terraform output
+      id: output
+      run: |
+        terraform output \
+          -no-color

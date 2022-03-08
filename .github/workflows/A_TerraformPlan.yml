@@ -27,14 +27,19 @@ jobs:
       id: init
       run: |
         terraform init \
-          -input=false \
+          -input=false -no-color \
           -backend-config="bucket=${{ secrets.BUCKET}}" \
           -backend-config="dynamodb_table=${{ secrets.DYNAMODB_TABLE}}"
 
     - name: Terraform validation
       id: validate
-      run: terraform validate -no-color
+      run: |
+        terraform validate \
+          -no-color
 
     - name: Terraform plan
       id: plan
-      run: terraform plan -var "pub_key_data=${{ secrets.ID_RSA_WEBODM}}" -no-color
+      run: |
+        terraform plan \
+          -no-color \
+          -var "pub_key_data=${{ secrets.ID_RSA_WEBODM}}"
