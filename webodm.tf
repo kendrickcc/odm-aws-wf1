@@ -121,13 +121,21 @@ data "aws_ami" "ubuntu" {
 #-------------------------------
 # Get cloud-init template file
 #-------------------------------
-data "template_file" "user_data" {
-  template = file("odmSetup.tpl")
+data "template_file" "webodm" {
+  template = file("webodm.tpl")
   vars = {
     ssh_key = var.pub_key_data
   }
 }
-# WebODM build
+data "template_file" "nodeodm" {
+  template = file("nodeodm.tpl")
+  vars = {
+    ssh_key = var.pub_key_data
+  }
+}
+#-------------------------------
+# EC2 instance WebODM
+#-------------------------------
 resource "aws_instance" "webodm" {
   count                       = var.webodm_count
   ami                         = data.aws_ami.ubuntu.id
@@ -136,13 +144,15 @@ resource "aws_instance" "webodm" {
   subnet_id                   = aws_subnet.odm_public_subnet.id
   vpc_security_group_ids      = [aws_security_group.odm.id]
   associate_public_ip_address = true
-  user_data                   = data.template_file.user_data.rendered
+  user_data                   = data.template_file.webodm.rendered
   root_block_device {
     volume_size = var.rootBlockSize
   }
   #private_ip                  = var.ip_webodm # if wanting to specify the internal IP address
 }
-# nodeODM Only difference is no public IP
+#-------------------------------
+# EC2 instance nodeodm
+#-------------------------------
 resource "aws_instance" "nodeodm" {
   count                       = var.nodeodm_count
   ami                         = data.aws_ami.ubuntu.id
@@ -151,7 +161,7 @@ resource "aws_instance" "nodeodm" {
   subnet_id                   = aws_subnet.odm_public_subnet.id
   vpc_security_group_ids      = [aws_security_group.odm.id]
   associate_public_ip_address = false
-  user_data                   = data.template_file.user_data.rendered
+  user_data                   = data.template_file.nodeodm.rendered
   root_block_device {
     volume_size = var.rootBlockSize
   }
