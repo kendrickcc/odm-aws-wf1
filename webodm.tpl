@@ -47,12 +47,12 @@ write_files:
 runcmd:
   - sudo mkdir -p /odm/data
   - git clone https://github.com/OpenDroneMap/WebODM --config core.autocrlf=input --depth 1 /odm/WebODM
+  - git clone https://github.com/OpenDroneMap/ClusterODM /odm/ClusterODM
   - sudo chown -R odm:odm /odm
   - sudo systemctl enable webodm.service
   - sudo systemctl start webodm.service
   - curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
   - sudo apt-get install -y nodejs
-  - git clone https://github.com/OpenDroneMap/ClusterODM /odm/ClusterODM
   - cd /odm/ClusterODM
   - sudo npm install
 # old commands
