@@ -47,15 +47,16 @@ write_files:
 runcmd:
   - sudo mkdir -p /odm/data
   - git clone https://github.com/OpenDroneMap/WebODM --config core.autocrlf=input --depth 1 /odm/WebODM
-  - git clone https://github.com/OpenDroneMap/ClusterODM /odm/ClusterODM
   - sudo chown -R odm:odm /odm
-  - sudo systemctl enable webodm.service
-  - sudo systemctl start webodm.service
-  - curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-  - sudo apt-get install -y nodejs
-  - cd /odm/ClusterODM
-  - sudo npm install
-# old commands
+  - sudo --user=odm docker run --rm -ti -p 3000:3000 -p 10000:10000 -p 8080:8080 opendronemap/clusterodm
+  
+#  - sudo systemctl enable webodm.service
+#  - sudo systemctl start webodm.service
+#  - git clone https://github.com/OpenDroneMap/ClusterODM /odm/ClusterODM
+#  - curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+#  - sudo apt-get install -y nodejs
+#  - cd /odm/ClusterODM
+#  - sudo npm install
 # following command does not really speed up loading
 #  - cd /webodm/WebODM
 #  - sudo docker-compose -f docker-compose.yml -f docker-compose.nodeodm.yml up --no-start
