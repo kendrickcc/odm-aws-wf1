@@ -24,4 +24,4 @@ jobs:
         aws-region: us-east-1
 
     - name: S3 remove bucket file
-      run: sudo aws s3 rm s3://s3-22020215/terraform.tfstate
+      run: aws s3 rm s3://s3-22020215/terraform.tfstate
