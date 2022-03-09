@@ -28,8 +28,7 @@ jobs:
       run: |
         terraform init \
           -input=false -no-color \
-          -backend-config="bucket=${{ secrets.BUCKET}}" \
-#          -backend-config="dynamodb_table=${{ secrets.DYNAMODB_TABLE}}"
+          -backend-config="bucket=${{ secrets.BUCKET}}"
 
     - name: Terraform validation
       id: validate
