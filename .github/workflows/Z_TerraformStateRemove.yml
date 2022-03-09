@@ -23,15 +23,5 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
 
-    - name: Terraform init
-      id: init
-      run: |
-        terraform init \
-          -input=false -no-color \
-          -backend-config="bucket=${{ secrets.BUCKET}}" \
-          -backend-config="dynamodb_table=${{ secrets.DYNAMODB_TABLE}}"
-
-    - name: Terraform state
-      id: state
-      run: |
-        terraform state rm
+    - name: S3 remove bucket file
+      run: sudo aws s3 rm s3://s3-22020215/terraform.tfstate
