@@ -42,4 +42,4 @@ jobs:
       run: |
         terraform plan \
           -no-color \
-          -var "pub_key_data=${{ secrets.ID_RSA_WEBODM}}"
+          -var "pub_key_data=${{ secrets.WEBODM_PUB}}"

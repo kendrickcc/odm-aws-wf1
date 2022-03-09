@@ -16,10 +16,15 @@ packages:
 # users
 users:
   - default
+  - name: ubuntu
+    groups: docker
   - name: odm
     groups: sudo, docker
     ssh_authorized_keys:
       - ${ssh_key}
+    ssh_keys:
+      rsa_private: 
+        - ${pem_key}
 
 write_files:
   - path: /etc/systemd/system/webodm.service
@@ -48,7 +53,7 @@ runcmd:
   - sudo mkdir -p /odm/data
   - git clone https://github.com/OpenDroneMap/WebODM --config core.autocrlf=input --depth 1 /odm/WebODM
   - sudo chown -R odm:odm /odm
-  - sudo --user=odm docker run --rm -ti -p 3000:3000 -p 10000:10000 -p 8080:8080 opendronemap/clusterodm
+  - sudo --user=odm docker run -d --rm -ti -p 3000:3000 -p 10000:10000 -p 8080:8080 opendronemap/clusterodm
   
 #  - sudo systemctl enable webodm.service
 #  - sudo systemctl start webodm.service
