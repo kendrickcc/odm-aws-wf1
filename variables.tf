@@ -13,11 +13,9 @@ variable "pub_key" {
 }
 variable "pub_key_data" {
   description = "The contents of the public key are stored in GitHub as a secret"
-  sensitive   = true
 }
-variable "pri_key_data" {
+variable "pem_key_data" {
   description = "The contents of the private key are stored in GitHub as a secret"
-  sensitive   = true
 }
 variable "aws_region" {
   description = "geographical location of infrastructure"
