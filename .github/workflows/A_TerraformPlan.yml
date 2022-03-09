@@ -1,6 +1,6 @@
 name: A - Terraform Plan
 
-on: repository_dispatch
+on: workspace_dispatch
 
 jobs:
   terraform:
