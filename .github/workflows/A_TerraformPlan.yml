@@ -1,7 +1,6 @@
 name: A - Terraform Plan
 
-on: 
-  repository_dispatch:
+on: repository_dispatch
 
 jobs:
   terraform:
