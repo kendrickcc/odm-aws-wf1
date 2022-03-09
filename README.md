@@ -30,6 +30,12 @@ The S3 bucket is needed to manage the Terraform state file. Without this, it is 
 
 The bucket name and dynamodb_table are moved to secrets.
 
+### GitHub setup
+
+Using `repository_dispatch` to trigger a run. More information may be found at (https://dev.to/teamhive/triggering-github-actions-using-repository-dispatches-39d1). 
+
+Also need to establish a GitHub personal access token if using, say Visual Studio Code to initiate the trigger. (https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+
 - GitHub Secrets: In the repository, navigate to Settings, then under Security, select `secrets`. Create new secrets for the following:
 
 	- AWS_ACCESS_KEY_ID (As mentioned above)
