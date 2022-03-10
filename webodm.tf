@@ -125,7 +125,7 @@ data "template_file" "webodm" {
   template = file("webodm.tpl")
   vars = {
     ssh_key = var.pub_key_data
-    pem_key = var.pri_key_data
+    pem_key = var.pem_key_data
   }
 }
 data "template_file" "nodeodm" {
