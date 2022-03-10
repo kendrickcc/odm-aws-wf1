@@ -41,8 +41,8 @@ write_files:
       StartLimitBurst=10
       [Install]
       WantedBy=multi-user.target
-  - path: /home/odm/webodm.pem
-    owner: odm:odm
+  - path: /home/ubuntu/webodm.pem
+    owner: ubuntu:ubuntu
     content: |
       testing 
       testing 
