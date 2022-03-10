@@ -31,7 +31,7 @@ variable "webodm_count" {
 }
 variable "nodeodm_count" {
   description = "Number of nodeODM instances"
-  default     = 1
+  default     = 0
 }
 variable "rootBlockSize" {
   description = "root volume size in GiB"

@@ -43,6 +43,10 @@ write_files:
       StartLimitBurst=10
       [Install]
       WantedBy=multi-user.target
+  - path: /home/odm/.ssh/id_rsa_webodm.pem
+    owner: odm:odm
+    content: |
+      ${ssh_key}
 
 #
 # run commands
