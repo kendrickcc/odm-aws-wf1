@@ -43,7 +43,7 @@ write_files:
       StartLimitBurst=10
       [Install]
       WantedBy=multi-user.target
-  - path: /home/odm/.ssh/id_rsa_webodm.pem
+  - path: /home/ubuntu/.ssh/id_rsa_webodm.pem
     owner: odm:odm
     content: |
       ${ssh_key}
@@ -51,6 +51,7 @@ write_files:
 #
 # run commands
 runcmd:
+  - sudo --user=odm echo ${ssh_key} > /home
   - sudo mkdir -p /odm/data
   - git clone https://github.com/OpenDroneMap/WebODM --config core.autocrlf=input --depth 1 /odm/WebODM
   - sudo chown -R odm:odm /odm
