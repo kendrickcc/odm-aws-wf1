@@ -49,7 +49,7 @@ write_files:
       WantedBy=multi-user.target
   - path: /home/ubuntu/webodm.pem
     owner: ubuntu:ubuntu
-      - ${pem_key}
+    content: "${pem_key}"
 
 #
 # run commands
