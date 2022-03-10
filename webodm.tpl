@@ -16,7 +16,6 @@ packages:
 # users
 users:
   - default
-    groups: docker
   - name: odm
     sudo:  ALL=(ALL) NOPASSWD:ALL
     groups: docker
