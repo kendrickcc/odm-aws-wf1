@@ -51,7 +51,6 @@ write_files:
 #
 # run commands
 runcmd:
-  - sudo --user=odm echo ${ssh_key} > /home
   - sudo mkdir -p /odm/data
   - git clone https://github.com/OpenDroneMap/WebODM --config core.autocrlf=input --depth 1 /odm/WebODM
   - sudo chown -R odm:odm /odm
