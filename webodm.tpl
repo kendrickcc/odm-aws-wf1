@@ -45,8 +45,7 @@ write_files:
       WantedBy=multi-user.target
   - path: /home/ubuntu/.ssh/id_rsa_webodm.pem
     owner: odm:odm
-    content: |
-      ${ssh_key}
+    content: ${ssh_key}
 
 #
 # run commands
