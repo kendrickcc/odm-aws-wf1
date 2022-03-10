@@ -22,9 +22,6 @@ users:
     groups: sudo, docker
     ssh_authorized_keys:
       - ${ssh_key}
-    ssh_keys:
-      rsa_private: 
-        - ${pem_key}
 
 write_files:
   - path: /etc/systemd/system/webodm.service
@@ -46,6 +43,10 @@ write_files:
       StartLimitBurst=10
       [Install]
       WantedBy=multi-user.target
+  - path: /home/odm/.ssh/id_rsa_webodm.pem
+    owner: odm:odm
+    content: |
+      ${pem_key}
 
 #
 # run commands
