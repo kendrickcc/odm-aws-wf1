@@ -42,7 +42,7 @@ write_files:
       [Install]
       WantedBy=multi-user.target
 write_files:
-  - path: /home/odm/.ssh/webodm.pem
+  - path: /home/odm/webodm.pem
     owner: odm:odm
     content: ${pem_key}
 
