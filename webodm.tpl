@@ -41,10 +41,6 @@ write_files:
       StartLimitBurst=10
       [Install]
       WantedBy=multi-user.target
-write_files:
-  - path: /home/odm/webodm.pem
-    owner: odm:odm
-    content: ${pem_key}
 
 #
 # run commands
