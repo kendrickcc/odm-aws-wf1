@@ -42,9 +42,6 @@ write_files:
       StartLimitBurst=10
       [Install]
       WantedBy=multi-user.target
-  - path: /home/ubuntu/webodm.pem
-    owner: ubuntu:ubuntu
-    content: "${cat pem_key}"
 
 #
 # run commands
@@ -52,7 +49,7 @@ runcmd:
   - sudo mkdir -p /odm/data
   - git clone https://github.com/OpenDroneMap/WebODM --config core.autocrlf=input --depth 1 /odm/WebODM
   - sudo chown -R odm:odm /odm
-  - sudo --user=odm docker run -d --rm -ti -p 3000:3000 -p 10000:10000 -p 8080:8080 opendronemap/clusterodm
+  - sudo --set-home --user=odm docker run -d --rm -ti -p 3000:3000 -p 10000:10000 -p 8080:8080 opendronemap/clusterodm
   
 #  - sudo systemctl enable webodm.service
 #  - sudo systemctl start webodm.service
