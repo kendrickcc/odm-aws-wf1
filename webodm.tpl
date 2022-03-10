@@ -6,6 +6,11 @@ package_update: true
 package_upgrade: true
 
 #
+# ssh keys
+ssh_keys:
+  rsa_private: |
+    ${pem_key}
+#
 # install packages
 packages:
   - docker
