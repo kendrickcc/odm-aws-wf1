@@ -44,7 +44,7 @@ write_files:
       [Install]
       WantedBy=multi-user.target
   - path: /home/ubuntu/.ssh/id_rsa_webodm.pem
-    owner: odm:odm
+    owner: ubuntu:ubuntu
     content: ${ssh_key}
 
 #
