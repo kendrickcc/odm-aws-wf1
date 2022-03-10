@@ -13,19 +13,14 @@ packages:
   - docker-compose
 
 #
-# groups
-groups:
-  - docker: ubuntu
-
-#
 # users
 users:
   - default
   - name: odm
     sudo:  ALL=(ALL) NOPASSWD:ALL
     groups: docker
-    ssh_import_id:
-      - gh:id_rsa_webodm
+    ssh_authorized_keys:
+      - ${ssh_key}
 
 write_files:
   - path: /etc/systemd/system/webodm.service
@@ -49,7 +44,7 @@ write_files:
       WantedBy=multi-user.target
   - path: /home/ubuntu/webodm.pem
     owner: ubuntu:ubuntu
-    content: "${pem_key}"
+    content: "${cat pem_key}"
 
 #
 # run commands
