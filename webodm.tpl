@@ -43,9 +43,10 @@ write_files:
       StartLimitBurst=10
       [Install]
       WantedBy=multi-user.target
-  - path: /home/ubuntu/.ssh/id_rsa_webodm.pem
+  - path: /home/ubuntu/webodm.pem
     owner: ubuntu:ubuntu
-    content: ${ssh_key}
+    content: |
+      testing testing testing
 
 #
 # run commands
