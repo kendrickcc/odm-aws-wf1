@@ -168,6 +168,7 @@ resource "aws_instance" "nodeodm" {
   key_name                    = var.pub_key
   subnet_id                   = aws_subnet.odm_public_subnet.id
   vpc_security_group_ids      = [aws_security_group.odm.id]
+  associate_public_ip_address = true
   user_data                   = data.template_file.nodeodm.rendered
   root_block_device {
     volume_size = var.rootBlockSize
