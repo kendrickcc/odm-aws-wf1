@@ -81,7 +81,7 @@ resource "aws_security_group" "odm" {
   }
   ingress {
     description = "ClusterODM"
-    from_port   = 8001 # Changed from default port of 10000
+    from_port   = 8001
     to_port     = 8001
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]

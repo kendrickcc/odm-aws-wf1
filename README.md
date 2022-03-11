@@ -86,3 +86,12 @@ This workflow is simply there if you need to check the IP addresses again. Howev
 ### Terraform State Destroy
 
 Sometimes the state file becomes out of sync, probably due to a change outside of Terraform, i.e. using the AWS Dashboard. This will be evident when Destroy workflow fails. Run this workflow to reset everything.
+
+## OpenDroneMap
+
+After 5 minutes, WebODM, ClusterODM and nodeODM nodes should be ready to acesss. Open the `B - Terraform Apply` action, and select `Terraform Apply` until you see `Terraform Output`. Expand this section and you should see IP addresses for the nodes. Open a browser to the public IP address.
+
+- [public ip]:8000 WebODM
+- [public ip]:8001 ClusterODM (Yes, this is changed from the default port of 10000)
+
+Since there is a node on the WebODM/ClusterODM server, you can add it to the ClusterODM using `localhost` and port `3001`. For the other servers, use the private IP address, then use port `3000`.
