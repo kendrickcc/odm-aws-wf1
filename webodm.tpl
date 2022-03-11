@@ -25,7 +25,7 @@ runcmd:
   - git clone https://github.com/OpenDroneMap/WebODM --config core.autocrlf=input --depth 1 /odm/WebODM
   - sudo chown -R odm:odm /odm
   - sudo --set-home --user=odm docker network create --subnet=172.20.0.0/16 odmnetwork
-  - sudo --set-home --user=odm docker run --detach --rm --network odmnetwork --ip 172.20.0.10 --tty --publish 3000:3000 --publish 10000:10000 --publish 8080:8080 opendronemap/clusterodm
+  - sudo --set-home --user=odm docker run --detach --rm --network odmnetwork --ip 172.20.0.10 --tty --publish 3000:3000 --publish 8001:8001 --publish 8080:8080 opendronemap/clusterodm
   - sudo --set-home --user=odm docker run --detach --rm --network odmnetwork --ip 172.20.0.11 --publish 3001:3000 opendronemap/nodeodm
   - sudo --set-home --user=odm /odm/WebODM/webodm.sh start --detached --default-nodes 0 --media-dir /odm/data
 #

@@ -14,9 +14,6 @@ variable "pub_key" {
 variable "pub_key_data" {
   description = "The contents of the public key are stored in GitHub as a secret"
 }
-variable "pem_key_data" {
-  description = "The contents of the private key are stored in GitHub as a secret"
-}
 variable "aws_region" {
   description = "geographical location of infrastructure"
   type        = string
@@ -31,7 +28,7 @@ variable "webodm_count" {
 }
 variable "nodeodm_count" {
   description = "Number of nodeODM instances"
-  default     = 0
+  default     = 2
 }
 variable "rootBlockSize" {
   description = "root volume size in GiB"
@@ -41,15 +38,8 @@ variable "vpc_cidr_block" {
   description = "Main VPC CIDR Block"
   default     = "192.168.0.0/16"
 }
-variable "ip_webodm" {
-  description = "The assigned IP address for WebODM server, from the public subnet"
-  default     = "192.168.1.10"
-}
 variable "public_subnet" {
   default = "192.168.1.0/24"
-}
-variable "private_subnet" {
-  default = "192.168.2.0/24"
 }
 variable "ami_selector" {
   description = "Ubuntu version to use. Bionic 18.04 LTS or Focal 20.04 LTS"

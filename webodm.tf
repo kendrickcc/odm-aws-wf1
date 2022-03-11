@@ -35,13 +35,6 @@ resource "aws_subnet" "odm_public_subnet" {
   cidr_block        = var.public_subnet
   availability_zone = var.avail_zone
 }
-/*
-resource "aws_subnet" "odm_private_subnet" {
-  vpc_id            = aws_vpc.odm.id
-  cidr_block        = var.private_subnet
-  availability_zone = var.avail_zone
-}
-*/
 #-------------------------------
 # Internet Gateway
 #-------------------------------
@@ -88,11 +81,12 @@ resource "aws_security_group" "odm" {
   }
   ingress {
     description = "ClusterODM"
-    from_port = 10000
-    to_port = 10000
-    protocol = "tcp"
+    from_port   = 8001 # Changed from default port of 10000
+    to_port     = 8001
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  /* only if direct access is needed to nodes
   ingress {
     description = "nodeODM"
     from_port = 3000
@@ -100,6 +94,7 @@ resource "aws_security_group" "odm" {
     protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  # */
   ingress {
     description = "internal"
     from_port   = 0
@@ -162,7 +157,6 @@ resource "aws_instance" "webodm" {
   root_block_device {
     volume_size = var.rootBlockSize
   }
-  #private_ip                  = var.ip_webodm # if wanting to specify the internal IP address
 }
 #-------------------------------
 # EC2 instance nodeodm
@@ -179,5 +173,4 @@ resource "aws_instance" "nodeodm" {
   root_block_device {
     volume_size = var.rootBlockSize
   }
-  #private_ip                  = var.ip_webodm # if wanting to specify the internal IP address
 }
