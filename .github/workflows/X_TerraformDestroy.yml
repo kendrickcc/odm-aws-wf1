@@ -41,5 +41,4 @@ jobs:
       run: |
         terraform apply \
           -destroy -auto-approve -input=false -no-color \
-          -var "pub_key_data=${{ secrets.WEBODM_PUB}}" \
-          -var "pem_key_data=${{ secrets.WEBODM_PEM}}"
+          -var "pub_key_data=${{ secrets.WEBODM_PUB}}" 
