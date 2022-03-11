@@ -65,13 +65,14 @@ resource "aws_route_table_association" "public_1_rt_a" {
 resource "aws_security_group" "odm" {
   name   = "SSH and ODM"
   vpc_id = aws_vpc.odm.id
+   /* Add "#" to the beginning of this line to open port 22 if needed.
   ingress {
     description = "SSH"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-  }
+  } # */
   ingress {
     description = "WebODM"
     from_port   = 8000
