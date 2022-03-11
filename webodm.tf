@@ -87,6 +87,20 @@ resource "aws_security_group" "odm" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
+    description = "ClusterODM"
+    from_port = 10000
+    to_port = 10000
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    description = "nodeODM"
+    from_port = 3000
+    to_port = 3000
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
     description = "internal"
     from_port   = 0
     to_port     = 0

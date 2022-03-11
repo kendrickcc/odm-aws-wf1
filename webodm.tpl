@@ -22,35 +22,16 @@ users:
     ssh_authorized_keys:
       - ${ssh_key}
 
-write_files:
-  - path: /etc/systemd/system/webodm.service
-    owner: odm:odm
-    content: |
-      [Unit]
-      Description=WebODM
-      After=network.target
-      After=systemd-user-sessions.service
-      After=network-online.target
-      [Service]
-      Type=simple
-      ExecStart=/odm/WebODM/webodm.sh start --media-dir /odm/data
-      ExecStop=/odm/WebODM/webodm.sh stop
-      TimeoutSec=30
-      Restart=on-failure
-      RestartSec=30
-      StartLimitInterval=350
-      StartLimitBurst=10
-      [Install]
-      WantedBy=multi-user.target
-
 #
 # run commands
 runcmd:
   - sudo mkdir -p /odm/data
   - git clone https://github.com/OpenDroneMap/WebODM --config core.autocrlf=input --depth 1 /odm/WebODM
   - sudo chown -R odm:odm /odm
-  - sudo --set-home --user=odm docker run -d --rm -ti -p 3000:3000 -p 10000:10000 -p 8080:8080 opendronemap/clusterodm
-  
+  - sudo --set-home --user=odm /odm/WebODM/webodm.sh start --detached --default-nodes 0 --media-dir /odm/data
+  - sudo --set-home --user=odm docker run --detach --rm --publish 3001:3000 opendronemap/nodeodm
+  - sudo --set-home --user=odm docker run --detach --rm --tty --publish 3000:3000 --publish 10000:10000 --publish 8080:8080 opendronemap/clusterodm
+
 #  - sudo systemctl enable webodm.service
 #  - sudo systemctl start webodm.service
 #  - git clone https://github.com/OpenDroneMap/ClusterODM /odm/ClusterODM
