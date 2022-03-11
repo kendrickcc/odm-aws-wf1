@@ -89,9 +89,11 @@ Sometimes the state file becomes out of sync, probably due to a change outside o
 
 ## OpenDroneMap
 
-After 5 minutes, WebODM, ClusterODM and nodeODM nodes should be ready to acesss. Open the `B - Terraform Apply` action, and select `Terraform Apply` until you see `Terraform Output`. Expand this section and you should see IP addresses for the nodes. Open a browser to the public IP address.
+After 5 minutes, WebODM, ClusterODM and nodeODM nodes should be ready to acesss. Open the `B - Terraform Apply` action, and select `Terraform Apply` until you see `Terraform Output`. Expand this section and you should see IP addresses for the nodes. A public IP address for WebODM, then private IP addresses for ClusterODM and any nodes. 
 
 - [public ip]:8000 WebODM
 - [public ip]:8001 ClusterODM (Yes, this is changed from the default port of 10000)
 
-Since there is a node on the WebODM/ClusterODM server, you can add it to the ClusterODM using `localhost` and port `3001`. For the other servers, use the private IP address, then use port `3000`.
+Open a browser to the ClusterODM port and add in the nodes using the private IP address. Use port 3001 for the node that is on the WebODM/ClusterODM server, then port 3000 for the other nodes.
+
+Then open port 8000 to access the WebODM portal, and add the ClusterODM using the private IP address and port 8080.
