@@ -85,6 +85,8 @@ This workflow is simply there if you need to check the IP addresses again. Howev
 
 - Once jobs are complete and data retrieved, then the environment can be brought down by running the action `X - Terraform Destroy`. If job is successful, then all resources brought up (exception VPC - DHCP options set) will be removed.
 
+***Note***: The `destroy` workflow has a cron entry to destroy everynight at midnight. This is prevent resources from being provisioned for long periods of time. Maybe forgetting to destroy after a job, or could not access consoles, etc.. Simply a measure to keep costs down.
+
 ### Terraform State Destroy
 
 Sometimes the state file becomes out of sync, probably due to a change outside of Terraform, i.e. using the AWS Dashboard. This will be evident when Destroy workflow fails. Run this workflow to reset everything.
